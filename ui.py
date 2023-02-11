@@ -32,13 +32,15 @@ class QuizInterface:
         if self.quiz_data.still_has_questions():
             question = self.quiz_data.next_question()
             self.question_pane.itemconfig(self.question_text, text=question)
-            self.question_pane.config(bg='white')
         else:
-            self.summary_score()
+            self.end_game()
+        self.question_pane.config(bg='white')
             
-    def summary_score(self):
+    def end_game(self):
         self.question_pane.itemconfig(self.question_text, 
                                       text=f"You've completed the quiz\n Your final score was: {self.quiz_data.score}/{self.quiz_data.question_number}")
+        self.correct_btn.config(command='')
+        self.false_btn.config(command='')
         
     def answer_true(self):
         self.check_answer('true')
